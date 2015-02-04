@@ -1,17 +1,9 @@
 #include "Password.h"
 using CSC2110::ListArrayIterator;
 using CSC2110::String;
-
 #include <iostream>
 using namespace std;
-
-
-
-
-
-
-
-
+using CSC2110::Password;
 
 int getNumMatches(String* curr_word, String* word_guess){
 	int matches = 0;
@@ -79,7 +71,58 @@ int Password::bestGuess()
       
       count++;
       delete[] count_num_matches;
-   }
+	}
+   
+void Password::addword( String* word)
+{
+   
+   
+}
+   
+void Password::guess(int try_password, int num_matches)
+{
+	
+	
+}
+	
+	
+int Password::getNumberOfPasswordsLeft()
+{
+	
+	
+}
+	
+void Password::displayViableWords()
+{
+	for ( int i = 0; i < ; i++)
+	{
+		
+	
+	}
+	
+}
+
+String* Password::getOriginalWord(int index)
+{
+
+
+}
+   
+//Constructor
+Password::Password()
+{
+
+}
+
+
+}
+   
+   
+   
+   
+   
+   
+   
 
    delete all_iter;
    return best_guess_index;  //return a 1-based index into the all_words list of words (careful)
