@@ -1,5 +1,6 @@
 #include "Password.h"
 using CSC2110::ListArrayIterator;
+using CSC2110::String;
 
 #include <iostream>
 using namespace std;
@@ -12,7 +13,15 @@ using namespace std;
 
 
 
-
+int getNumMatches(String* curr_word, String* word_guess){
+	int matches = 0;
+	for(int x = 0;x<curr_word->length();x++){
+		if(curr_word->charAt(x) == word_guess->charAt(x)){
+			matches++;
+		}
+	}
+	return matches;
+}
 
 
 int Password::bestGuess()

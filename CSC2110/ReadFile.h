@@ -5,6 +5,7 @@
 using CSC2110::String;
 
 #include <fstream>
+namespace CSC2110{
 
 class ReadFile
 {
@@ -20,5 +21,7 @@ class ReadFile
       bool eof();
       void close();
 };
+
+}
 
 #endif
