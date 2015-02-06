@@ -1,14 +1,16 @@
 #include "Password.h"
-using CSC2110::ListArrayIterator;
-using CSC2110::String;
 #include <iostream>
-using namespace std;
-using CSC2110::Password;
 
-int getNumMatches(String* curr_word, String* word_guess){
+using namespace std;
+using namespace CSC2110;
+
+int Password::getNumMatches(String* curr_word, String* word_guess)
+{
 	int matches = 0;
-	for(int x = 0;x<curr_word->length();x++){
-		if(curr_word->charAt(x) == word_guess->charAt(x)){
+	for(int x = 0; x < curr_word->length(); x++ )
+	{	
+		if(curr_word->charAt(x) == word_guess->charAt(x))
+		{		
 			matches++;
 		}
 	}
@@ -73,14 +75,39 @@ int Password::bestGuess()
       delete[] count_num_matches;
 	}
    
-void Password::addword( String* word)
+   delete all_iter;
+   return best_guess_index;  //return a 1-based index into the all_words list of words (careful)
+}
+
+
+
+
+void Password::addword( String* word )
 {
+
+	if ( len == 0 )
+	{
+		len = word->length();
+	}
+	
+   if ( len != word->length())
+   {
+		cout < "You did not enter a word with the same length." << endl;
+		break;
+   }
+   else
+   {
+		viable_words[sz_viable] = word;
+		all_words[sz] = word;
+		sz++;
+		sz_viable++;
+   }
    
    
 }
    
-void Password::guess(int try_password, int num_matches)
-{
+void Password::guess(int try_password, int num_matches )
+{ 
 	
 	
 }
@@ -94,36 +121,34 @@ int Password::getNumberOfPasswordsLeft()
 	
 void Password::displayViableWords()
 {
-	for ( int i = 0; i < ; i++)
+	 
+
+	ListArrayIterator<String>* iter = new ListArrayIterator(viable_words, sz);
+	while(iter->hasNext())
 	{
-		
-	
+		DisplayString(iter->next());
 	}
 	
 }
 
 String* Password::getOriginalWord(int index)
 {
-
+	return all_words( index - 1 );
 
 }
    
 //Constructor
 Password::Password()
 {
-
+	viable_words = new ListArray<String>();
+	all_words = new ListArray<String>();
+	len = 0;
+	sz = 0;
 }
 
+Password::~Password();
+{
+	
 
-}
-   
-   
-   
-   
-   
-   
-   
 
-   delete all_iter;
-   return best_guess_index;  //return a 1-based index into the all_words list of words (careful)
 }
