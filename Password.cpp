@@ -109,7 +109,7 @@ void Password::addWord( String* word )
 void Password::guess(int try_password, int num_matches )
 { 
 	
-	
+	//Change this function to use the iterator, thanks
 
 	int size = viable_words->size();
 	ListArray<String>* temp_words = new ListArray<String>();
