@@ -8,7 +8,8 @@ int Password::getNumMatches(String* curr_word, String* word_guess)
 {
 	int matches = 0;
 	for(int x = 0; x < curr_word->length(); x++ )
-	{	
+	{
+
 		if(curr_word->charAt(x) == word_guess->charAt(x))
 		{		
 			matches++;
@@ -92,10 +93,10 @@ void Password::addWord( String* word )
 	
    if ( len != word->length())
    {
-		cout << "You did not enter a word with the same length." << endl;
+		cout << "You have words of different length." << endl;
 		return;
    }
-   else
+   else 
    {
 		viable_words->add(word);
 		all_words->add(word);
@@ -108,15 +109,34 @@ void Password::addWord( String* word )
 void Password::guess(int try_password, int num_matches )
 { 
 	
+	
 
-	for(int i = 0; i < viable_words->size() ; i++ )
+	int size = viable_words->size();
+	ListArray<String>* temp_words = new ListArray<String>();
+
+
+			for(int i = 1; i <= size ; i++ )
 	{	
-		if ( getNumMatches( viable_words->get(i), viable_words->get(try_password - 1 )) < num_matches )
+			temp_words->add( viable_words->get(i)  );
+	}
+
+	delete viable_words;
+	viable_words = new ListArray<String>();
+
+	
+	for(int i = 1; i <= size ; i++ )
+	{	
+		if ( getNumMatches( temp_words->get(i), all_words->get(try_password)) == num_matches )
 		{
-			viable_words->remove( i );
+			
+			viable_words->add( all_words->get(i) );
+			
 		}
 		
 	}
+
+	
+
 	
 	
 	
@@ -130,26 +150,22 @@ int Password::getNumberOfPasswordsLeft()
 	
 void Password::displayViableWords()
 {
-	 
-	 for(int x = 0; x < viable_words->size(); x++ )
-	{	
-		viable_words->get(x)->displayString();
-	}
-	 
-	 
-/*
-	ListArrayIterator<String>* iter = new ListArrayIterator<String>(viable_words, viable_words->size());
+
+	ListArrayIterator<String>* iter = viable_words->iterator();
 	while(iter->hasNext())
 	{
+		cout << endl;
 		iter->next()->displayString();
 	}
-*/
+
+	cout << endl;
+	cout << endl;
 }
 
 String* Password::getOriginalWord(int index)
 {
 	
-	return all_words->get(index-1);
+	return all_words->get(index);
 
 }
    
@@ -164,18 +180,18 @@ Password::Password()
 Password::~Password()
 {
 
-	for(int i = 0; i <= viable_words->size() ; i++ )
+	for(int i = 1; i <= viable_words->size() ; i++ )
 	{	
 		viable_words->remove(i);
 	}
 	
-	for(int i = 0; i <= all_words->size() ; i++ )
+	for(int i = 1; i <= all_words->size() ; i++ )
 	{	
 		all_words->remove(i);
 	}
 	
-	delete[] viable_words;
-	delete[] all_words;
+	delete viable_words;
+	delete all_words;
 
 
 }

@@ -67,5 +67,6 @@ int main()
    addWords(fallout);
    guessWords(fallout);
    delete fallout;
+
 }
  
