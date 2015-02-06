@@ -82,7 +82,7 @@ int Password::bestGuess()
 
 
 
-void Password::addword( String* word )
+void Password::addWord( String* word )
 {
 
 	if ( len == 0 )
@@ -92,15 +92,14 @@ void Password::addword( String* word )
 	
    if ( len != word->length())
    {
-		cout < "You did not enter a word with the same length." << endl;
-		break;
+		cout << "You did not enter a word with the same length." << endl;
+		return;
    }
    else
    {
-		viable_words[sz_viable] = word;
-		all_words[sz] = word;
-		sz++;
-		sz_viable++;
+		viable_words->add(word);
+		all_words->add(word);
+
    }
    
    
@@ -109,31 +108,48 @@ void Password::addword( String* word )
 void Password::guess(int try_password, int num_matches )
 { 
 	
+
+	for(int i = 0; i < viable_words->size() ; i++ )
+	{	
+		if ( getNumMatches( viable_words->get(i), viable_words->get(try_password - 1 )) < num_matches )
+		{
+			viable_words->remove( i );
+		}
+		
+	}
+	
+	
 	
 }
 	
 	
 int Password::getNumberOfPasswordsLeft()
 {
-	
-	
+	return viable_words->size();
 }
 	
 void Password::displayViableWords()
 {
 	 
-
-	ListArrayIterator<String>* iter = new ListArrayIterator(viable_words, sz);
+	 for(int x = 0; x < viable_words->size(); x++ )
+	{	
+		viable_words->get(x)->displayString();
+	}
+	 
+	 
+/*
+	ListArrayIterator<String>* iter = new ListArrayIterator<String>(viable_words, viable_words->size());
 	while(iter->hasNext())
 	{
-		DisplayString(iter->next());
+		iter->next()->displayString();
 	}
-	
+*/
 }
 
 String* Password::getOriginalWord(int index)
 {
-	return all_words( index - 1 );
+	
+	return all_words->get(index-1);
 
 }
    
@@ -143,12 +159,23 @@ Password::Password()
 	viable_words = new ListArray<String>();
 	all_words = new ListArray<String>();
 	len = 0;
-	sz = 0;
 }
 
-Password::~Password();
+Password::~Password()
 {
+
+	for(int i = 0; i <= viable_words->size() ; i++ )
+	{	
+		viable_words->remove(i);
+	}
 	
+	for(int i = 0; i <= all_words->size() ; i++ )
+	{	
+		all_words->remove(i);
+	}
+	
+	delete[] viable_words;
+	delete[] all_words;
 
 
 }
